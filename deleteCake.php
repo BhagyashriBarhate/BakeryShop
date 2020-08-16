@@ -1,0 +1,41 @@
+<?php
+ob_start();
+$connect = mysqli_connect("localhost", "root", "", "php");  
+@$uid=$_GET['id'];
+
+$delete="delete from product where id='$uid'";
+$del= mysqli_query($connect, $delete);
+
+if ($del) {
+    header("Location:viewCake.php");
+    
+//   // $cid=$_SESSION['cname']=$_POST['category'];
+//    if($_SESSION['cname']=="2")
+//    {
+//        header("Location:viewCake.php");
+//    }
+//// else {
+////         header("Location:ViewProductCategory.php");
+////    }
+//   
+}
+ else {
+    echo mysqli_error($connect);
+    //echo "<script>alert('error in single delete');</script>";
+}
+
+foreach($_POST['cb'] as $val)
+{
+    $sql="delete from product where id='$val'";
+    if(mysqli_query($connect, $sql))
+    {
+          header("Location:viewCake.php");
+         //header("Location:ViewProductCategory.php");
+    }
+    else
+    {
+        echo "error";
+    }
+}
+echo "<script>location.href='viewCake.php';</script>";
+?>
